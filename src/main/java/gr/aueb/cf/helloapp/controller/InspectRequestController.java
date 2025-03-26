@@ -2,18 +2,27 @@ package gr.aueb.cf.helloapp.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
-@WebServlet("inspect-request")
+@WebServlet("/inspect-request")
 public class InspectRequestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        HttpSession session = request.getSession(false);    //false: get current session (if exists) else return null
+
+        if (username != null && username.equals("thanassis") && password != null && password.equals("12345")) {
+            session.setAttribute("username", username);
+            session.setAttribute("role", "TEACHER");
+
+        }
+
+        response.sendRedirect("/school-app/teachers");
         response.getWriter().write("Session id: " + request.getSession());
 
         Cookie[] cookies = request.getCookies();
