@@ -29,6 +29,8 @@ public class TeachersViewController extends HttpServlet {
                 new Teacher(6L, "Αθανάσιος", "Ανδρούτσος")
         );
 
+//        teachers = teacherService.getAllTeachers;
+
         String message = "";
         String filterId = request.getParameter("id");
         Long longFilteredId = (filterId != null && !filterId.isEmpty()) ? Long.parseLong(filterId) : null;
